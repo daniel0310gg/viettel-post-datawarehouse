@@ -111,7 +111,7 @@ erDiagram
     FACT_SHIPMENTS ||--o{ DIM_DATE_PICKUP : "pickup_date_key"
     FACT_SHIPMENTS ||--o{ DIM_DATE_DELIVERY : "delivery_date_key"
     FACT_SHIPMENTS ||--o{ DIM_SERVICE_TYPES : "service_type_key"
-
+    
     DIM_CUSTOMERS {
         int customer_key PK
         string customer_id NK
@@ -124,7 +124,7 @@ erDiagram
         string lifecycle_stage
         bit is_active
     }
-
+    
     DIM_ROUTES {
         int route_key PK
         string route_id NK
@@ -137,7 +137,7 @@ erDiagram
         string distance_category
         bit is_express_route
     }
-
+    
     DIM_DATE_PICKUP {
         int date_key PK
         date full_date
@@ -148,7 +148,7 @@ erDiagram
         string day_name
         bit is_weekend
     }
-
+    
     DIM_DATE_DELIVERY {
         int date_key PK
         date full_date
@@ -159,14 +159,14 @@ erDiagram
         string day_name
         bit is_weekend
     }
-
+    
     DIM_SERVICE_TYPES {
         int service_type_key PK
         string service_type_code
         string service_type_name
         string service_tier
     }
-
+    
     FACT_SHIPMENTS {
         string shipment_id PK
         int customer_key FK
@@ -189,9 +189,6 @@ erDiagram
         bit is_returned
         bit is_perfect_delivery
     }
-```
-
----
 
 ## 3. Data Flow - ETL Process
 
