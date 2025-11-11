@@ -106,11 +106,11 @@ graph LR
 
 ```mermaid
 erDiagram
-    FACT_SHIPMENTS ||--o{ DIM_CUSTOMERS : "customer_key"
-    FACT_SHIPMENTS ||--o{ DIM_ROUTES : "route_key"
-    FACT_SHIPMENTS ||--o{ DIM_DATE_PICKUP : "pickup_date_key"
-    FACT_SHIPMENTS ||--o{ DIM_DATE_DELIVERY : "delivery_date_key"
-    FACT_SHIPMENTS ||--o{ DIM_SERVICE_TYPES : "service_type_key"
+    DIM_CUSTOMERS ||--o{ FACT_SHIPMENTS : has
+    DIM_ROUTES ||--o{ FACT_SHIPMENTS : has
+    DIM_DATE_PICKUP ||--o{ FACT_SHIPMENTS : has
+    DIM_DATE_DELIVERY ||--o{ FACT_SHIPMENTS : has
+    DIM_SERVICE_TYPES ||--o{ FACT_SHIPMENTS : has
     
     DIM_CUSTOMERS {
         int customer_key PK
