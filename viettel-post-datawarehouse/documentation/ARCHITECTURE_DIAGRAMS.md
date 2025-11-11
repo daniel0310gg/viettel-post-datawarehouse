@@ -105,90 +105,93 @@ graph LR
 ## 2. Star Schema - Data Model
 
 ```mermaid
-erDiagram
-    DIM_CUSTOMERS ||--o{ FACT_SHIPMENTS : has
-    DIM_ROUTES ||--o{ FACT_SHIPMENTS : has
-    DIM_DATE_PICKUP ||--o{ FACT_SHIPMENTS : has
-    DIM_DATE_DELIVERY ||--o{ FACT_SHIPMENTS : has
-    DIM_SERVICE_TYPES ||--o{ FACT_SHIPMENTS : has
-    
-    DIM_CUSTOMERS {
-        int customer_key PK
-        string customer_id NK
-        string customer_name
-        string customer_type
-        string customer_segment
-        string province
-        date registration_date
-        int customer_tenure_days
-        string lifecycle_stage
-        bit is_active
+classDiagram
+    class FACT_SHIPMENTS {
+        +string shipment_id PK
+        +int customer_key FK
+        +int route_key FK
+        +int pickup_date_key FK
+        +int delivery_date_key FK
+        +int service_type_key FK
+        +decimal weight_kg
+        +decimal volume_cbm
+        +decimal shipping_fee
+        +decimal total_revenue
+        +decimal cod_amount
+        +decimal actual_delivery_hours
+        +decimal promised_delivery_hours
+        +decimal delivery_delay_hours
+        +decimal customer_rating
+        +bit is_on_time
+        +bit is_delivered
+        +bit is_damaged
+        +bit is_returned
+        +bit is_perfect_delivery
     }
     
-    DIM_ROUTES {
-        int route_key PK
-        string route_id NK
-        string route_name
-        string origin_province
-        string destination_province
-        decimal distance_km
-        decimal estimated_duration_hours
-        string transport_mode
-        string distance_category
-        bit is_express_route
+    class DIM_CUSTOMERS {
+        +int customer_key PK
+        +string customer_id NK
+        +string customer_name
+        +string customer_type
+        +string customer_segment
+        +string province
+        +date registration_date
+        +int customer_tenure_days
+        +string lifecycle_stage
+        +bit is_active
     }
     
-    DIM_DATE_PICKUP {
-        int date_key PK
-        date full_date
-        int year
-        int month
-        int quarter
-        string month_name
-        string day_name
-        bit is_weekend
+    class DIM_ROUTES {
+        +int route_key PK
+        +string route_id NK
+        +string route_name
+        +string origin_province
+        +string destination_province
+        +decimal distance_km
+        +decimal estimated_duration_hours
+        +string transport_mode
+        +string distance_category
+        +bit is_express_route
     }
     
-    DIM_DATE_DELIVERY {
-        int date_key PK
-        date full_date
-        int year
-        int month
-        int quarter
-        string month_name
-        string day_name
-        bit is_weekend
+    class DIM_DATE_PICKUP {
+        +int date_key PK
+        +date full_date
+        +int year
+        +int month
+        +int quarter
+        +string month_name
+        +string day_name
+        +bit is_weekend
     }
     
-    DIM_SERVICE_TYPES {
-        int service_type_key PK
-        string service_type_code
-        string service_type_name
-        string service_tier
+    class DIM_DATE_DELIVERY {
+        +int date_key PK
+        +date full_date
+        +int year
+        +int month
+        +int quarter
+        +string month_name
+        +string day_name
+        +bit is_weekend
     }
     
-    FACT_SHIPMENTS {
-        string shipment_id PK
-        int customer_key FK
-        int route_key FK
-        int pickup_date_key FK
-        int delivery_date_key FK
-        int service_type_key FK
-        decimal weight_kg
-        decimal volume_cbm
-        decimal shipping_fee
-        decimal total_revenue
-        decimal cod_amount
-        decimal actual_delivery_hours
-        decimal promised_delivery_hours
-        decimal delivery_delay_hours
-        decimal customer_rating
-        bit is_on_time
-        bit is_delivered
-        bit is_damaged
-        bit is_returned
-        bit is_perfect_delivery
+    class DIM_SERVICE_TYPES {
+        +int service_type_key PK
+        +string service_type_code
+        +string service_type_name
+        +string service_tier
     }
+    
+    DIM_CUSTOMERS "1" --> "*" FACT_SHIPMENTS : customer_key
+    DIM_ROUTES "1" --> "*" FACT_SHIPMENTS : route_key
+    DIM_DATE_PICKUP "1" --> "*" FACT_SHIPMENTS : pickup_date_key
+    DIM_DATE_DELIVERY "1" --> "*" FACT_SHIPMENTS : delivery_date_key
+    DIM_SERVICE_TYPES "1" --> "*" FACT_SHIPMENTS : service_type_key
+```
+
+---
 
 ## 3. Data Flow - ETL Process
 
