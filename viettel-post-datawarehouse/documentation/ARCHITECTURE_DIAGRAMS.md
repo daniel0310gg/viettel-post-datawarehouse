@@ -189,7 +189,6 @@ erDiagram
         bit is_returned
         bit is_perfect_delivery
     }
-
 ## 3. Data Flow - ETL Process
 
 ```mermaid
